@@ -10,12 +10,14 @@ app.use(express.static("public"));
 const day = new Date().getDay();
 const hours = new Date().getHours();
 
+
 const curentdate = (req, res, next) => {
-  if (day == 0 || day == 6 /*|| hours < 9 || hours > 17 */) {
-    return res.send("<h1>OUT OF WORKING</h1>");
-  }
-  next();
-};
+  if (hours > 9 && hours <17 && day>0 && day<6){
+    next();
+}else{
+    res.sendFile(__dirname + "/public/outOfService.html")
+}
+}
 app.use(curentdate);
 
 app.get("/Contact", (req, res) => {
